@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -8,6 +9,8 @@ namespace Hello.MultiKeyBindings
     class MockKeyboard : KeyboardDevice
     {
         private static readonly PresentationSource Source = Substitute.For<PresentationSource>();
+        private readonly Random _random = new Random();
+
         public readonly Dictionary<Key, KeyStates> Keys = new Dictionary<Key, KeyStates>();
 
         public MockKeyboard() : base(InputManager.Current)
@@ -29,6 +32,11 @@ namespace Hello.MultiKeyBindings
         public KeyEventArgs ArgsFor(Key key)
         {
             return new KeyEventArgs(this, Source, 0, key) { RoutedEvent = Keyboard.KeyDownEvent };
+        }
+
+        public KeyEventArgs RandomKeyArgs()
+        {
+            return ArgsFor((Key)_random.Next((int)Key.A, (int)Key.Z));
         }
 
         protected override KeyStates GetKeyStatesFromSystem(Key key)

@@ -1,5 +1,5 @@
 using System;
-using System.Linq;
+using System.Threading;
 using System.Windows.Input;
 using FluentAssertions;
 using NUnit.Framework;
@@ -14,17 +14,38 @@ namespace Hello.MultiKeyBindings
         public void Match_any_interesting_combo()
         {
             var delay = TimeSpan.FromMilliseconds(10);
-            const int keys = 3;
-            var sut = new PossibleShortcutGesture(keys, delay);
+            const int maxNumKeys = 3;
+            var sut = new PossibleShortcutGesture(maxNumKeys, delay);
 
             var keyboard = new MockKeyboard();
-            keyboard.SetModifiers(ModifierKeys.Control);
 
-            var keyK = keyboard.ArgsFor(Key.K);
-            sut.Matches(null, keyK).Should().BeTrue();
-            sut.Matches(null, keyK).Should().BeTrue();
-            sut.Matches(null, keyK).Should().BeTrue();
-            sut.Matches(null, keyK).Should().BeFalse("max keys exceeded");
+            foreach (var modifier in PossibleShortcutGesture.ModifierCombos)
+            {
+                // modifier hold over the whole sequence
+                keyboard.SetModifiers(modifier);
+                for (int i = 0; i<maxNumKeys; i++)
+                    sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeTrue();
+                sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeFalse("max keys exceeded");
+
+                // delay between keys execeeded
+                keyboard.SetModifiers(modifier);
+                sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeTrue();
+                Thread.Sleep(delay);
+                sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeFalse("delay exceeded");
+
+                // modifier only pressed on the 1st key
+                keyboard.SetModifiers(modifier);
+                sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeTrue();
+                keyboard.SetModifiers(ModifierKeys.None);
+                for (int i = 1; i < maxNumKeys; i++)
+                    sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeTrue();
+                sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeFalse("max keys exceeded");
+
+                // no modifier at beginning
+                keyboard.SetModifiers(ModifierKeys.None);
+                for (int i = 1; i <= maxNumKeys; i++)
+                    sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeFalse();
+            }
         }
 
         [Test, RequiresSTA]
@@ -40,6 +61,8 @@ namespace Hello.MultiKeyBindings
                 keyboard.Keys[key] = KeyStates.Toggled;
                 sut.Matches(null, k).Should().BeTrue();
                 keyboard.Keys[key] = KeyStates.None;
+
+                sut.Matches(null, k).Should().BeFalse();
             }
         }
 
@@ -56,6 +79,8 @@ namespace Hello.MultiKeyBindings
                 keyboard.Keys[key] = KeyStates.Toggled;
                 sut.Matches(null, k).Should().BeTrue();
                 keyboard.Keys[key] = KeyStates.None;
+
+                sut.Matches(null, k).Should().BeFalse();
             }
         }
     }

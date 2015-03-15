@@ -55,20 +55,33 @@ namespace Hello.MultiKeyBindings
             return false;
         }
 
-        public static readonly Key[] ModifierKeys = {Key.LeftCtrl, Key.LeftShift, Key.LeftAlt,
+        public static readonly ModifierKeys[] ModifierCombos = new[]
+            {
+                ModifierKeys.Control, 
+                ModifierKeys.Shift, 
+                ModifierKeys.Alt,
+                ModifierKeys.Control | ModifierKeys.Shift, 
+                ModifierKeys.Control | ModifierKeys.Shift | ModifierKeys.Alt
+            };
+
+        //public static readonly Key[] LetterKeys = Enumerable.Range((byte)Key.A, Key.Z - Key.A)
+        //        .Select(b => (Key)b).ToArray();
+
+        public static readonly Key[] ModifiersKeys = {Key.LeftCtrl, Key.LeftShift, Key.LeftAlt,
            Key.RightCtrl, Key.RightShift, Key.RightAlt};
+
         public static readonly Key[] FunctionKeys = Enumerable.Range((byte)Key.F1, Key.F24 - Key.F1)
                 .Select(b => (Key)b).ToArray();
+
         public static readonly Key[] SpecialKeys = 
         {
             Key.Play, Key.Pause, Key.MediaPlayPause, 
             Key.MediaNextTrack, Key.MediaPreviousTrack
         };
 
-
         private static bool IsInterestingModifierPressed(KeyboardDevice keyboard)
         {
-            return ModifierKeys.Any(keyboard.IsKeyDown);
+            return ModifiersKeys.Any(keyboard.IsKeyDown);
         }
 
         private static bool IsSpecialKey(KeyboardDevice keyboard)
