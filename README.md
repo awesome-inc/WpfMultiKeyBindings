@@ -6,7 +6,7 @@ A wpf sample for MultiKeyBindings like in Visual Studio.
 
 ## What is it?
 
-When input speed is important users keyboard shortcuts. As your feature list grows they will ask for more and more shortcuts. Soon, you will run out of keys to use with the default [KeyGesture](https://msdn.microsoft.com/en-us/library/system.windows.input.keygesture%28v=vs.110%29.aspx), as you also don't want to collide with the default Windows control shortcuts. The way to go is to simply support longer gestures with unbound key sequences. Visual Studio extensions like [ReSharper] do exactly this and this is what you get here.
+When input speed is important users ask for keyboard shortcuts. As your feature list grows they will ask for more and more shortcuts. Soon, you will run out of keys to use with the default [KeyGesture](https://msdn.microsoft.com/en-us/library/system.windows.input.keygesture%28v=vs.110%29.aspx), as you also don't want to collide with the default Windows control shortcuts. The way to go is to simply support longer gestures with unbound key sequences. Visual Studio extensions like [ReSharper] do exactly this and this is what you get here.
 
 ## Usage
 
