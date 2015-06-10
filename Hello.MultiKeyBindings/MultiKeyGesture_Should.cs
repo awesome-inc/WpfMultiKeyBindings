@@ -15,7 +15,7 @@ namespace Hello.MultiKeyBindings
         {
             var delay = TimeSpan.FromMilliseconds(10);
 
-                var keyboard = new MockKeyboard();
+            var keyboard = new MockKeyboard();
             var key1 = keyboard.RandomKeyArgs();
             var key2 = keyboard.RandomKeyArgs();
             var keyOther = keyboard.ArgsFor(Key.None);

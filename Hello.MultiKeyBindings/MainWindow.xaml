@@ -3,6 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Hello.MultiKeyBindings"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+    </Window.Resources>
     <Window.InputBindings>
         <local:MultiKeyBinding x:Name="multiKeyA" Gesture="Ctrl+A,B" Command="{x:Static local:UiCommands.TestA}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
         <local:MultiKeyBinding x:Name="multiKeyB" Gesture="Ctrl+Shift+A,B,C" Command="{x:Static local:UiCommands.TestB}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
@@ -15,13 +20,11 @@
         <CommandBinding x:Name="commandTestC" Command="{x:Static local:UiCommands.TestC}" Executed="commandTest_Executed"/>
         <CommandBinding x:Name="commandTestD" Command="{x:Static local:UiCommands.TestD}" Executed="commandTest_Executed"/>
     </Window.CommandBindings>
-    <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Gestures:" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Gesture, ElementName=multiKeyA}"/>
-            <TextBlock Text="{Binding Gesture, ElementName=multiKeyB}"/>
-            <TextBlock Text="{Binding Gesture, ElementName=multiKeyC}"/>
-            <TextBlock Text="{Binding Gesture, ElementName=multiKeyD}"/>
-        </StackPanel>
-    </Grid>
+    <StackPanel Orientation="Vertical" Margin="4">
+        <TextBlock Text="Gestures:" FontWeight="Bold"/>
+        <TextBlock Text="{Binding Gesture, ElementName=multiKeyA}"/>
+        <TextBlock Text="{Binding Gesture, ElementName=multiKeyB}"/>
+        <TextBlock Text="{Binding Gesture, ElementName=multiKeyC}"/>
+        <TextBlock Text="{Binding Gesture, ElementName=multiKeyD}"/>
+    </StackPanel>
 </Window>
