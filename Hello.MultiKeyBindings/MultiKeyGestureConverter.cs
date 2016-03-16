@@ -25,11 +25,11 @@ namespace Hello.MultiKeyBindings
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == null ||destinationType != typeof(string))
-                throw new ArgumentException(@"Can only convert to string", "destinationType");
+                throw new ArgumentException(@"Can only convert to string", nameof(destinationType));
             
             var multiKeyGesture = value as MultiKeyGesture;
             if (multiKeyGesture == null)
-                throw new ArgumentException(@"Can only convert from MultiKeyGesture", "value");
+                throw new ArgumentException(@"Can only convert from MultiKeyGesture", nameof(value));
             return multiKeyGesture.ToString();
         }
     }

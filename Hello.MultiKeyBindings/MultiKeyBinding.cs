@@ -13,7 +13,7 @@ namespace Hello.MultiKeyBindings
             set
             {
                 if (!(value is MultiKeyGesture))
-                    throw new ArgumentException(@"Not a MultiKeyGesture", "value");
+                    throw new ArgumentException(@"Not a MultiKeyGesture", nameof(value));
                 base.Gesture = value;
             }
         }

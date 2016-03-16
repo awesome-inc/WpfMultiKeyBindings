@@ -6,7 +6,7 @@ using NSubstitute;
 
 namespace Hello.MultiKeyBindings
 {
-    class MockKeyboard : KeyboardDevice
+    internal class MockKeyboard : KeyboardDevice
     {
         private static readonly PresentationSource Source = Substitute.For<PresentationSource>();
         private readonly Random _random = new Random();

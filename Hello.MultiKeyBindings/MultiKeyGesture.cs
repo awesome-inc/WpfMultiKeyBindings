@@ -13,17 +13,17 @@ namespace Hello.MultiKeyBindings
     {
         // adapted from https://athaur.wordpress.com/2010/05/14/keygesture-with-multiple-keys/
         private readonly TimeSpan _maxDelayBetweenKeys;
-        int _keyIndex;
+        private int _keyIndex;
         private readonly Stopwatch _stopWatch = Stopwatch.StartNew();
-        public readonly Key[] Keys;
+        private readonly Key[] _keys;
 
         public MultiKeyGesture(ICollection<Key> keyCollection, ModifierKeys modifiers, 
             TimeSpan? maxDelayBetweenKeys = null) 
             : base(Key.F1, modifiers)
         {
-            if (keyCollection == null) throw new ArgumentNullException("keyCollection");
-            if (keyCollection.Count < 2) throw new ArgumentException(@"Should specify more than one key for MultiKeyGesture","keyCollection");
-            Keys = keyCollection.ToArray();
+            if (keyCollection == null) throw new ArgumentNullException(nameof(keyCollection));
+            if (keyCollection.Count < 2) throw new ArgumentException(@"Should specify more than one key for MultiKeyGesture",nameof(keyCollection));
+            _keys = keyCollection.ToArray();
             _maxDelayBetweenKeys = maxDelayBetweenKeys ?? TimeSpan.FromSeconds(1);
         }
 
@@ -46,13 +46,13 @@ namespace Hello.MultiKeyBindings
                 return false;
             }
 
-            if (_keyIndex >= Keys.Length || Keys[_keyIndex] != key)
+            if (_keyIndex >= _keys.Length || _keys[_keyIndex] != key)
             {
                 _keyIndex = 0;
                 return false;
             }
 
-            if (_keyIndex != Keys.Length - 1)
+            if (_keyIndex != _keys.Length - 1)
             {
                 _keyIndex++;
                 _stopWatch.Restart();
@@ -71,15 +71,15 @@ namespace Hello.MultiKeyBindings
             var culture = CultureInfo.InvariantCulture;
             var modifiersToken = ModifierKeysConverter.ConvertTo(null, culture, Modifiers, typeof(string));
 
-            var keys = Keys.Select(key => (string)KeyConverter.ConvertTo(null, culture, key, typeof(string)));
-            var keysToken = String.Join(KeysSeparator.ToString(culture), keys);
+            var keys = _keys.Select(key => (string)KeyConverter.ConvertTo(null, culture, key, typeof(string)));
+            var keysToken = string.Join(KeysSeparator.ToString(culture), keys);
 
-            return String.Concat(modifiersToken, ModifiersDelimiter, keysToken);
+            return string.Concat(modifiersToken, ModifiersDelimiter, keysToken);
         }
 
         public static MultiKeyGesture Parse(string value)
         {
-            if (String.IsNullOrWhiteSpace(value)) return null;
+            if (string.IsNullOrWhiteSpace(value)) return null;
 
             var str = value.Trim();
 

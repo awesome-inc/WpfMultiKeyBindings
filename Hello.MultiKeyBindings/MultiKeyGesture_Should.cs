@@ -8,9 +8,9 @@ namespace Hello.MultiKeyBindings
 {
     [TestFixture]
     // ReSharper disable InconsistentNaming
-    class MultiKeyGesture_Should
+    internal class MultiKeyGesture_Should
     {
-        [Test, RequiresSTA]
+        [Test, Apartment(ApartmentState.STA)]
         public void Support_multi_keys()
         {
             var delay = TimeSpan.FromMilliseconds(10);

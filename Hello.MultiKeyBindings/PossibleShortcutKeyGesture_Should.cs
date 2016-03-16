@@ -8,9 +8,9 @@ namespace Hello.MultiKeyBindings
 {
     [TestFixture]
     // ReSharper disable InconsistentNaming
-    class PossibleShortcutKeyGesture_Should
+    internal class PossibleShortcutKeyGesture_Should
     {
-        [Test, RequiresSTA]
+        [Test, Apartment(ApartmentState.STA)]
         public void Match_any_interesting_combo()
         {
             var delay = TimeSpan.FromMilliseconds(10);
@@ -48,7 +48,7 @@ namespace Hello.MultiKeyBindings
             }
         }
 
-        [Test, RequiresSTA]
+        [Test, Apartment(ApartmentState.STA)]
         public void Match_function_keys()
         {
             var sut = new PossibleShortcutGesture();
@@ -66,7 +66,7 @@ namespace Hello.MultiKeyBindings
             }
         }
 
-        [Test, RequiresSTA]
+        [Test, Apartment(ApartmentState.STA)]
         public void Match_special_keys()
         {
             var sut = new PossibleShortcutGesture();

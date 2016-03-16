@@ -1,15 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hello.MultiKeyBindings", "Hello.MultiKeyBindings\Hello.MultiKeyBindings.csproj", "{CD061F47-EF00-4790-9424-C9F3C3EE26D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84B86374-7663-43A8-A9BC-40F44B07F269}"
 	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		before.MiniMod.MultiKeyBinding.sln.targets = before.MiniMod.MultiKeyBinding.sln.targets
+		build.bat = build.bat
+		empty.targets = empty.targets
+		GitVersionConfig.yaml = GitVersionConfig.yaml
 		HelloMultiKeyBindings.png = HelloMultiKeyBindings.png
 		LICENCE = LICENCE
 		README.md = README.md
+		solution.targets = solution.targets
+		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection
 EndProject
 Global

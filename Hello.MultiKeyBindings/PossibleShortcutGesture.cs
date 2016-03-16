@@ -64,9 +64,6 @@ namespace Hello.MultiKeyBindings
                 ModifierKeys.Control | ModifierKeys.Shift | ModifierKeys.Alt
             };
 
-        //public static readonly Key[] LetterKeys = Enumerable.Range((byte)Key.A, Key.Z - Key.A)
-        //        .Select(b => (Key)b).ToArray();
-
         public static readonly Key[] ModifiersKeys = {Key.LeftCtrl, Key.LeftShift, Key.LeftAlt,
            Key.RightCtrl, Key.RightShift, Key.RightAlt};
 
