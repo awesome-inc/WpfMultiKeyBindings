@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Input;
 using FluentAssertions;
@@ -23,7 +24,7 @@ namespace WpfMultiKeyBindings
             {
                 // modifier hold over the whole sequence
                 keyboard.SetModifiers(modifier);
-                for (int i = 0; i<maxNumKeys; i++)
+                for (var i = 0; i<maxNumKeys; i++)
                     sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeTrue();
                 sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeFalse("max keys exceeded");
 
@@ -37,13 +38,13 @@ namespace WpfMultiKeyBindings
                 keyboard.SetModifiers(modifier);
                 sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeTrue();
                 keyboard.SetModifiers(ModifierKeys.None);
-                for (int i = 1; i < maxNumKeys; i++)
+                for (var i = 1; i < maxNumKeys; i++)
                     sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeTrue();
                 sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeFalse("max keys exceeded");
 
                 // no modifier at beginning
                 keyboard.SetModifiers(ModifierKeys.None);
-                for (int i = 1; i <= maxNumKeys; i++)
+                for (var i = 1; i <= maxNumKeys; i++)
                     sut.Matches(null, keyboard.RandomKeyArgs()).Should().BeFalse();
             }
         }
@@ -51,13 +52,26 @@ namespace WpfMultiKeyBindings
         [Test, Apartment(ApartmentState.STA)]
         public void Match_function_keys()
         {
+            MatchKeys(PossibleShortcutGesture.FunctionKeys);
+        }
+
+        [Test, Apartment(ApartmentState.STA)]
+        public void Match_special_keys()
+        {
+            MatchKeys(PossibleShortcutGesture.SpecialKeys);
+        }
+
+        private static void MatchKeys(IEnumerable<Key> keys)
+        {
             var sut = new PossibleShortcutGesture();
             var keyboard = new MockKeyboardDevice();
 
             var k = keyboard.ArgsFor(Key.None);
 
-            foreach (var key in PossibleShortcutGesture.FunctionKeys)
+            foreach (var key in keys)
             {
+                keyboard.Keys[key] = KeyStates.Down;
+                sut.Matches(null, k).Should().BeTrue();
                 keyboard.Keys[key] = KeyStates.Toggled;
                 sut.Matches(null, k).Should().BeTrue();
                 keyboard.Keys[key] = KeyStates.None;
@@ -67,21 +81,16 @@ namespace WpfMultiKeyBindings
         }
 
         [Test, Apartment(ApartmentState.STA)]
-        public void Match_special_keys()
+        public void Support_Single_Keys_on_PreviewKeyDown()
         {
-            var sut = new PossibleShortcutGesture();
             var keyboard = new MockKeyboardDevice();
 
-            var k = keyboard.ArgsFor(Key.None);
+            var sut = new PossibleShortcutGesture();
 
-            foreach (var key in PossibleShortcutGesture.SpecialKeys)
-            {
-                keyboard.Keys[key] = KeyStates.Toggled;
-                sut.Matches(null, k).Should().BeTrue();
-                keyboard.Keys[key] = KeyStates.None;
+            var e = keyboard.ArgsFor(Key.F11, Keyboard.PreviewKeyDownEvent);
+            keyboard.Keys[Key.F11] = KeyStates.Down;
 
-                sut.Matches(null, k).Should().BeFalse();
-            }
+            sut.Matches(null, e).Should().BeTrue();
         }
     }
 }

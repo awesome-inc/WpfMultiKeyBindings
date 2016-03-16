@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:WpfSample"
         xmlns:aw="clr-namespace:WpfMultiKeyBindings;assembly=WpfMultiKeyBindings"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" PreviewKeyDown="MainWindow_OnPreviewKeyDown">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="4"/>
@@ -14,18 +14,44 @@
         <aw:MultiKeyBinding x:Name="multiKeyB" Gesture="Ctrl+Shift+A,B,C" Command="{x:Static local:UiCommands.TestB}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
         <aw:MultiKeyBinding x:Name="multiKeyC" Gesture="Ctrl+Alt+A,B,C" Command="{x:Static local:UiCommands.TestC}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
         <aw:MultiKeyBinding x:Name="multiKeyD" Gesture="Ctrl+Alt+Shift+A,B,C" Command="{x:Static local:UiCommands.TestD}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
+        <aw:MultiKeyBinding x:Name="multiKeyE" Gesture="F11" Command="{x:Static local:UiCommands.TestE}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
     </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding x:Name="commandTestA" Command="{x:Static local:UiCommands.TestA}" Executed="commandTest_Executed"/>
         <CommandBinding x:Name="commandTestB" Command="{x:Static local:UiCommands.TestB}" Executed="commandTest_Executed"/>
         <CommandBinding x:Name="commandTestC" Command="{x:Static local:UiCommands.TestC}" Executed="commandTest_Executed"/>
         <CommandBinding x:Name="commandTestD" Command="{x:Static local:UiCommands.TestD}" Executed="commandTest_Executed"/>
+        <CommandBinding x:Name="commandTestE" Command="{x:Static local:UiCommands.TestE}" Executed="commandTest_Executed"/>
     </Window.CommandBindings>
-    <StackPanel Orientation="Vertical" Margin="4">
-        <TextBlock Text="Gestures:" FontWeight="Bold"/>
-        <TextBlock Text="{Binding Gesture, ElementName=multiKeyA}"/>
-        <TextBlock Text="{Binding Gesture, ElementName=multiKeyB}"/>
-        <TextBlock Text="{Binding Gesture, ElementName=multiKeyC}"/>
-        <TextBlock Text="{Binding Gesture, ElementName=multiKeyD}"/>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Margin="4">
+            <TextBlock Text="Gestures:" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Gesture, ElementName=multiKeyA}"/>
+            <TextBlock Text="{Binding Gesture, ElementName=multiKeyB}"/>
+            <TextBlock Text="{Binding Gesture, ElementName=multiKeyC}"/>
+            <TextBlock Text="{Binding Gesture, ElementName=multiKeyD}"/>
+            <TextBlock Text="{Binding Gesture, ElementName=multiKeyE}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="KeyBinding"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="KeyBindingStatus" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="PreviewKeyDown"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="PreviewKeyDownStatus" />
+        </Grid>
+    </Grid>
 </Window>

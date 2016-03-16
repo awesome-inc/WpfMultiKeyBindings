@@ -9,5 +9,6 @@ namespace WpfSample
         public static readonly RoutedCommand TestB = new RoutedCommand("Test B", typeof(UIElement));
         public static readonly RoutedCommand TestC = new RoutedCommand("Test C", typeof(UIElement));
         public static readonly RoutedCommand TestD = new RoutedCommand("Test D", typeof(UIElement));
+        public static readonly RoutedCommand TestE = new RoutedCommand("Test E", typeof(UIElement));
     }
 }
