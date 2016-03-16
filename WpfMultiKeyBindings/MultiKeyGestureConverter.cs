@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Hello.MultiKeyBindings
+namespace WpfMultiKeyBindings
 {
     public class MultiKeyGestureConverter : TypeConverter
     {

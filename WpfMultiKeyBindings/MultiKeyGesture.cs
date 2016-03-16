@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 
-namespace Hello.MultiKeyBindings
+namespace WpfMultiKeyBindings
 {
     [TypeConverter(typeof(MultiKeyGestureConverter))]
     public class MultiKeyGesture : KeyGesture

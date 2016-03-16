@@ -1,8 +1,8 @@
-# MiniMod.MultiKeyBinding
+# WpfMultiKeyBindings
 
-A [MiniMod](https://github.com/minimod/minimods) for WPF for MultiKeyBindings like in Visual Studio.
+A WPF implementation for MultiKeyBindings like in Visual Studio.
 
-![Screenshot of sample application](HelloMultiKeyBindings.png)
+![Screenshot of sample application](WpfSample.png)
 
 ## What is it?
 

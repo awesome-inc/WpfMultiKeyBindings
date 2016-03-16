@@ -4,7 +4,7 @@ using System.Windows.Input;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Hello.MultiKeyBindings
+namespace WpfMultiKeyBindings
 {
     [TestFixture]
     // ReSharper disable InconsistentNaming

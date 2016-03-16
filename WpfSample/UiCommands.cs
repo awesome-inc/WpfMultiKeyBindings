@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace Hello.MultiKeyBindings
+namespace WpfSample
 {
     public static class UiCommands
     {

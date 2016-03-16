@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace Hello.MultiKeyBindings
+namespace WpfMultiKeyBindings
 {
     public class MultiKeyBinding : InputBinding
     {

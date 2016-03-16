@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>MiniMod.MultiKeyBinding</id>
+    <id>WpfMultiKeyBindings</id>
     <version>$Version$</version>
-    <title>MiniMod.MultiKeyBinding</title>
+    <title>WpfMultiKeyBindings</title>
     <authors>Awesome Incremented and Contributors</authors>
     <owners>Awesome Incremented and Contributors</owners>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>Revision: $Revision$</releaseNotes>
-    <projectUrl>https://github.com/awesome-inc/MiniMod.MultiKeyBinding</projectUrl>
-    <description>A MiniMod for WPF for MultiKeyBindings like in Visual Studio.</description>
-    <summary>A MiniMod for WPF for MultiKeyBindings like in Visual Studio.</summary>
+    <projectUrl>https://github.com/awesome-inc/WpfMultiKeyBindings</projectUrl>
+    <description>A WPF implementation for MultiKeyBindings like in Visual Studio.</description>
+    <summary>A WPF implementation for MultiKeyBindings like in Visual Studio.</summary>
     <copyright>Awesome Incremented</copyright>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="WindowsBase"/>
@@ -21,6 +21,6 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="bin\Release\FontAwesome.Sharp.dll" target="content"/>
+    <file src="bin\Release\WpfMultiKeyBindings.dll" target="lib\net45"/>
   </files>
 </package>
