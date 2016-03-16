@@ -6,14 +6,14 @@ using NSubstitute;
 
 namespace WpfMultiKeyBindings
 {
-    public class MockKeyboard : KeyboardDevice
+    public class MockKeyboardDevice : KeyboardDevice
     {
         private static readonly PresentationSource Source = Substitute.For<PresentationSource>();
         private readonly Random _random = new Random();
 
         public readonly Dictionary<Key, KeyStates> Keys = new Dictionary<Key, KeyStates>();
 
-        public MockKeyboard() : base(InputManager.Current)
+        public MockKeyboardDevice() : base(InputManager.Current)
         {
         }
 

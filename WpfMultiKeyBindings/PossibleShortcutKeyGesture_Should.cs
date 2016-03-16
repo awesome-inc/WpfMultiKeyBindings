@@ -17,7 +17,7 @@ namespace WpfMultiKeyBindings
             const int maxNumKeys = 3;
             var sut = new PossibleShortcutGesture(maxNumKeys, delay);
 
-            var keyboard = new MockKeyboard();
+            var keyboard = new MockKeyboardDevice();
 
             foreach (var modifier in PossibleShortcutGesture.ModifierCombos)
             {
@@ -52,7 +52,7 @@ namespace WpfMultiKeyBindings
         public void Match_function_keys()
         {
             var sut = new PossibleShortcutGesture();
-            var keyboard = new MockKeyboard();
+            var keyboard = new MockKeyboardDevice();
 
             var k = keyboard.ArgsFor(Key.None);
 
@@ -70,7 +70,7 @@ namespace WpfMultiKeyBindings
         public void Match_special_keys()
         {
             var sut = new PossibleShortcutGesture();
-            var keyboard = new MockKeyboard();
+            var keyboard = new MockKeyboardDevice();
 
             var k = keyboard.ArgsFor(Key.None);
 
