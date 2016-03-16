@@ -63,8 +63,10 @@
   <ItemGroup>
     <Compile Include="MockKeyboardDevice.cs" />
     <Compile Include="MultiKeyBinding.cs" />
+    <Compile Include="MultiKeyBinding_Should.cs" />
     <Compile Include="MultiKeyGesture.cs" />
     <Compile Include="MultiKeyGestureConverter.cs" />
+    <Compile Include="MultiKeyGestureConverter_Should.cs" />
     <Compile Include="MultiKeyGesture_Should.cs" />
     <Compile Include="PossibleShortcutGesture.cs" />
     <Compile Include="PossibleShortcutKeyGesture_Should.cs" />

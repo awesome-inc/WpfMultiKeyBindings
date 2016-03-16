@@ -60,5 +60,18 @@ namespace WpfMultiKeyBindings
                 sut.Matches(null, key2).Should().BeFalse("no modifier");
             }
         }
+
+        [Test]
+        [SetCulture("en")]
+        [TestCase(null, null)]
+        [TestCase("Ctrl+A,B", "Ctrl+A,B")]
+        public void Parse(string input, string expected)
+        {
+            var gesture = MultiKeyGesture.Parse(input);
+            if (gesture != null)
+                gesture.ToString().Should().Be(expected);
+            else
+                expected.Should().BeNullOrWhiteSpace();
+        }
     }
 }

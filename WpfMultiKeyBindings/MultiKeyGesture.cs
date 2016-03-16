@@ -15,7 +15,7 @@ namespace WpfMultiKeyBindings
         private readonly TimeSpan _maxDelayBetweenKeys;
         private int _keyIndex;
         private readonly Stopwatch _stopWatch = Stopwatch.StartNew();
-        private readonly Key[] _keys;
+        public readonly Key[] Keys;
 
         public MultiKeyGesture(ICollection<Key> keyCollection, ModifierKeys modifiers, 
             TimeSpan? maxDelayBetweenKeys = null) 
@@ -23,7 +23,7 @@ namespace WpfMultiKeyBindings
         {
             if (keyCollection == null) throw new ArgumentNullException(nameof(keyCollection));
             if (keyCollection.Count < 2) throw new ArgumentException(@"Should specify more than one key for MultiKeyGesture",nameof(keyCollection));
-            _keys = keyCollection.ToArray();
+            Keys = keyCollection.ToArray();
             _maxDelayBetweenKeys = maxDelayBetweenKeys ?? TimeSpan.FromSeconds(1);
         }
 
@@ -46,13 +46,13 @@ namespace WpfMultiKeyBindings
                 return false;
             }
 
-            if (_keyIndex >= _keys.Length || _keys[_keyIndex] != key)
+            if (_keyIndex >= Keys.Length || Keys[_keyIndex] != key)
             {
                 _keyIndex = 0;
                 return false;
             }
 
-            if (_keyIndex != _keys.Length - 1)
+            if (_keyIndex != Keys.Length - 1)
             {
                 _keyIndex++;
                 _stopWatch.Restart();
@@ -68,16 +68,22 @@ namespace WpfMultiKeyBindings
 
         public override string ToString()
         {
-            var culture = CultureInfo.InvariantCulture;
-            var modifiersToken = ModifierKeysConverter.ConvertTo(null, culture, Modifiers, typeof(string));
+            return ToString(CultureInfo.InvariantCulture);
+        }
 
-            var keys = _keys.Select(key => (string)KeyConverter.ConvertTo(null, culture, key, typeof(string)));
-            var keysToken = string.Join(KeysSeparator.ToString(culture), keys);
+        public string ToString(CultureInfo culture)
+        {
+            var safeCulture = culture ?? CultureInfo.InvariantCulture;
+            var modifiersToken = ModifierKeysConverter.ConvertTo(null, safeCulture, Modifiers, typeof(string));
+
+            var keys = Keys.Select(key => (string)KeyConverter.ConvertTo(null, safeCulture, key, typeof(string)));
+            var keysToken = string.Join(KeysSeparator.ToString(safeCulture), keys);
 
             return string.Concat(modifiersToken, ModifiersDelimiter, keysToken);
         }
 
-        public static MultiKeyGesture Parse(string value)
+
+        public static MultiKeyGesture Parse(string value, CultureInfo culture = null)
         {
             if (string.IsNullOrWhiteSpace(value)) return null;
 
@@ -88,11 +94,11 @@ namespace WpfMultiKeyBindings
             var modifiersToken = str.Substring(0, index);
             var keysToken = str.Substring(index + 1);
 
-            var culture = CultureInfo.InvariantCulture;
-            var modifiers = (ModifierKeys)ModifierKeysConverter.ConvertFrom(null, culture, modifiersToken);
+            var safeCulture = culture ?? CultureInfo.InvariantCulture;
+            var modifiers = (ModifierKeys)ModifierKeysConverter.ConvertFrom(null, safeCulture, modifiersToken);
 
             var keys = keysToken.Split(KeysSeparator).Select(keyToken =>
-                (Key)KeyConverter.ConvertFrom(null, culture, keyToken)).ToArray();
+                (Key)KeyConverter.ConvertFrom(null, safeCulture, keyToken)).ToArray();
 
             return new MultiKeyGesture(keys, modifiers);
         }
