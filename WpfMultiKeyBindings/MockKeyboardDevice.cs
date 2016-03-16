@@ -4,16 +4,16 @@ using System.Windows;
 using System.Windows.Input;
 using NSubstitute;
 
-namespace Hello.MultiKeyBindings
+namespace WpfMultiKeyBindings
 {
-    internal class MockKeyboard : KeyboardDevice
+    public class MockKeyboardDevice : KeyboardDevice
     {
         private static readonly PresentationSource Source = Substitute.For<PresentationSource>();
         private readonly Random _random = new Random();
 
         public readonly Dictionary<Key, KeyStates> Keys = new Dictionary<Key, KeyStates>();
 
-        public MockKeyboard() : base(InputManager.Current)
+        public MockKeyboardDevice() : base(InputManager.Current)
         {
         }
 
@@ -29,9 +29,9 @@ namespace Hello.MultiKeyBindings
                 modifiers.HasFlag(ModifierKeys.Shift) ? KeyStates.Down : KeyStates.None;
         }
 
-        public KeyEventArgs ArgsFor(Key key)
+        public KeyEventArgs ArgsFor(Key key, RoutedEvent keyEvent = null)
         {
-            return new KeyEventArgs(this, Source, 0, key) { RoutedEvent = Keyboard.KeyDownEvent };
+            return new KeyEventArgs(this, Source, 0, key) { RoutedEvent = keyEvent ?? Keyboard.KeyDownEvent };
         }
 
         public KeyEventArgs RandomKeyArgs()

@@ -1,7 +1,8 @@
-﻿<Window x:Class="Hello.MultiKeyBindings.MainWindow"
+﻿<Window x:Class="WpfSample.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Hello.MultiKeyBindings"
+        xmlns:local="clr-namespace:WpfSample"
+        xmlns:aw="clr-namespace:WpfMultiKeyBindings;assembly=WpfMultiKeyBindings"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -9,10 +10,10 @@
         </Style>
     </Window.Resources>
     <Window.InputBindings>
-        <local:MultiKeyBinding x:Name="multiKeyA" Gesture="Ctrl+A,B" Command="{x:Static local:UiCommands.TestA}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
-        <local:MultiKeyBinding x:Name="multiKeyB" Gesture="Ctrl+Shift+A,B,C" Command="{x:Static local:UiCommands.TestB}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
-        <local:MultiKeyBinding x:Name="multiKeyC" Gesture="Ctrl+Alt+A,B,C" Command="{x:Static local:UiCommands.TestC}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
-        <local:MultiKeyBinding x:Name="multiKeyD" Gesture="Ctrl+Alt+Shift+A,B,C" Command="{x:Static local:UiCommands.TestD}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
+        <aw:MultiKeyBinding x:Name="multiKeyA" Gesture="Ctrl+A,B" Command="{x:Static local:UiCommands.TestA}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
+        <aw:MultiKeyBinding x:Name="multiKeyB" Gesture="Ctrl+Shift+A,B,C" Command="{x:Static local:UiCommands.TestB}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
+        <aw:MultiKeyBinding x:Name="multiKeyC" Gesture="Ctrl+Alt+A,B,C" Command="{x:Static local:UiCommands.TestC}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
+        <aw:MultiKeyBinding x:Name="multiKeyD" Gesture="Ctrl+Alt+Shift+A,B,C" Command="{x:Static local:UiCommands.TestD}" CommandParameter="{Binding Path=Gesture, RelativeSource={RelativeSource Self}}"/>
     </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding x:Name="commandTestA" Command="{x:Static local:UiCommands.TestA}" Executed="commandTest_Executed"/>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <ItemGroup Condition="'$(IsCSharpProject)' == 'true'">
+    <ItemGroup>
          <Compile Include="$(SolutionDir)SolutionInfo.cs">
             <Link>Properties\SolutionInfo.cs</Link>
         </Compile>
@@ -65,11 +65,10 @@
         <NUnitResultFormat>nunit3</NUnitResultFormat>
     </PropertyGroup>
 
-    <!--## Specifying your repository token for coveralls.io
+    <!--## Specifying your repository token for coveralls.io -->
     <PropertyGroup>
-        <CoverAllsToken>[your repo token]</CoverAllsToken>
+        <CoverAllsToken>Qkcd677SSbcLZFHbBEo86WqqNCtdSpN7X</CoverAllsToken>
     </PropertyGroup>
-                -->
 
     <!-- ## Uncomment to override the default nuget server to push packages to in the 'Deploy' target
     <PropertyGroup>

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 
-namespace Hello.MultiKeyBindings
+namespace WpfMultiKeyBindings
 {
     public class PossibleShortcutGesture : KeyGesture
     {

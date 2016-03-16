@@ -4,7 +4,7 @@ using System.Windows.Input;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Hello.MultiKeyBindings
+namespace WpfMultiKeyBindings
 {
     [TestFixture]
     // ReSharper disable InconsistentNaming
@@ -17,7 +17,7 @@ namespace Hello.MultiKeyBindings
             const int maxNumKeys = 3;
             var sut = new PossibleShortcutGesture(maxNumKeys, delay);
 
-            var keyboard = new MockKeyboard();
+            var keyboard = new MockKeyboardDevice();
 
             foreach (var modifier in PossibleShortcutGesture.ModifierCombos)
             {
@@ -52,7 +52,7 @@ namespace Hello.MultiKeyBindings
         public void Match_function_keys()
         {
             var sut = new PossibleShortcutGesture();
-            var keyboard = new MockKeyboard();
+            var keyboard = new MockKeyboardDevice();
 
             var k = keyboard.ArgsFor(Key.None);
 
@@ -70,7 +70,7 @@ namespace Hello.MultiKeyBindings
         public void Match_special_keys()
         {
             var sut = new PossibleShortcutGesture();
-            var keyboard = new MockKeyboard();
+            var keyboard = new MockKeyboardDevice();
 
             var k = keyboard.ArgsFor(Key.None);
 

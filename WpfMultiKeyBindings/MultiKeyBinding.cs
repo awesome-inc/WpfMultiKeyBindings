@@ -2,11 +2,11 @@ using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace Hello.MultiKeyBindings
+namespace WpfMultiKeyBindings
 {
     public class MultiKeyBinding : InputBinding
     {
-        [TypeConverter(typeof(MultiKeyGestureConverter))]
+        [TypeConverter(typeof (MultiKeyGestureConverter))]
         public override InputGesture Gesture
         {
             get { return base.Gesture; }
@@ -20,7 +20,7 @@ namespace Hello.MultiKeyBindings
 
         public override string ToString()
         {
-            return Gesture.ToString();
+            return Gesture?.ToString() ?? base.ToString();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace Hello.MultiKeyBindings
+namespace WpfSample
 {
     // Adapted from Caliburn.Micro sample
     // https://github.com/Caliburn-Micro/Caliburn.Micro/tree/master/samples/Caliburn.Micro.KeyBinding/Caliburn.Micro.KeyBinding/Input
