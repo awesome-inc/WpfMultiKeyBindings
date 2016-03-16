@@ -15,7 +15,7 @@ namespace WpfMultiKeyBindings
         {
             var delay = TimeSpan.FromMilliseconds(10);
 
-            var keyboard = new MockKeyboard();
+            var keyboard = new MockKeyboardDevice();
             var key1 = keyboard.RandomKeyArgs();
             var key2 = keyboard.RandomKeyArgs();
             var keyOther = keyboard.ArgsFor(Key.None);
@@ -59,6 +59,19 @@ namespace WpfMultiKeyBindings
                 sut.Matches(null, key1).Should().BeFalse("should not match on first key");
                 sut.Matches(null, key2).Should().BeFalse("no modifier");
             }
+        }
+
+        [Test]
+        [SetCulture("en")]
+        [TestCase(null, null)]
+        [TestCase("Ctrl+A,B", "Ctrl+A,B")]
+        public void Parse(string input, string expected)
+        {
+            var gesture = MultiKeyGesture.Parse(input);
+            if (gesture != null)
+                gesture.ToString().Should().Be(expected);
+            else
+                expected.Should().BeNullOrWhiteSpace();
         }
     }
 }

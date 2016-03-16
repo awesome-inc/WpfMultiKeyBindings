@@ -18,19 +18,20 @@ namespace WpfMultiKeyBindings
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            var str = (string)value;
-            return MultiKeyGesture.Parse(str);
+            var str = value as string;
+            return MultiKeyGesture.Parse(str, culture);
         }
 
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+            Type destinationType)
         {
-            if (destinationType == null ||destinationType != typeof(string))
+            if (destinationType == null || destinationType != typeof (string))
                 throw new ArgumentException(@"Can only convert to string", nameof(destinationType));
-            
+
             var multiKeyGesture = value as MultiKeyGesture;
             if (multiKeyGesture == null)
                 throw new ArgumentException(@"Can only convert from MultiKeyGesture", nameof(value));
-            return multiKeyGesture.ToString();
+            return multiKeyGesture.ToString(culture);
         }
     }
 }
