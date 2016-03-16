@@ -22,9 +22,14 @@ namespace WpfMultiKeyBindings
             : base(Key.F1, modifiers)
         {
             if (keyCollection == null) throw new ArgumentNullException(nameof(keyCollection));
-            if (keyCollection.Count < 2) throw new ArgumentException(@"Should specify more than one key for MultiKeyGesture",nameof(keyCollection));
+            if (keyCollection.Count < 1) throw new ArgumentException(@"Should specify at least one key for MultiKeyGesture",nameof(keyCollection));
             Keys = keyCollection.ToArray();
             _maxDelayBetweenKeys = maxDelayBetweenKeys ?? TimeSpan.FromSeconds(1);
+        }
+
+        public MultiKeyGesture(ModifierKeys modifiers, params Key[] keys)
+            : this(keys, modifiers)
+        {
         }
 
         public override bool Matches(object targetElement, InputEventArgs inputEventArgs)
@@ -74,11 +79,12 @@ namespace WpfMultiKeyBindings
         public string ToString(CultureInfo culture)
         {
             var safeCulture = culture ?? CultureInfo.InvariantCulture;
-            var modifiersToken = ModifierKeysConverter.ConvertTo(null, safeCulture, Modifiers, typeof(string));
 
             var keys = Keys.Select(key => (string)KeyConverter.ConvertTo(null, safeCulture, key, typeof(string)));
             var keysToken = string.Join(KeysSeparator.ToString(safeCulture), keys);
+            if (Modifiers == ModifierKeys.None) return keysToken;
 
+            var modifiersToken = ModifierKeysConverter.ConvertTo(null, safeCulture, Modifiers, typeof (string));
             return string.Concat(modifiersToken, ModifiersDelimiter, keysToken);
         }
 
@@ -89,13 +95,19 @@ namespace WpfMultiKeyBindings
 
             var str = value.Trim();
 
+            var safeCulture = culture ?? CultureInfo.InvariantCulture;
+            var modifiers = ModifierKeys.None;
+
             // break apart keys and modifiers
             var index = str.LastIndexOf(ModifiersDelimiter);
-            var modifiersToken = str.Substring(0, index);
-            var keysToken = str.Substring(index + 1);
+            var keysToken = str;
+            if (index > 0)
+            {
+                var modifiersToken = str.Substring(0, index);
+                modifiers = (ModifierKeys) ModifierKeysConverter.ConvertFrom(null, safeCulture, modifiersToken);
+                keysToken = str.Substring(index + 1);
+            }
 
-            var safeCulture = culture ?? CultureInfo.InvariantCulture;
-            var modifiers = (ModifierKeys)ModifierKeysConverter.ConvertFrom(null, safeCulture, modifiersToken);
 
             var keys = keysToken.Split(KeysSeparator).Select(keyToken =>
                 (Key)KeyConverter.ConvertFrom(null, safeCulture, keyToken)).ToArray();

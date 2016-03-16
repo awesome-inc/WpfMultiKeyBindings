@@ -65,6 +65,7 @@ namespace WpfMultiKeyBindings
         [SetCulture("en")]
         [TestCase(null, null)]
         [TestCase("Ctrl+A,B", "Ctrl+A,B")]
+        [TestCase("F11", "F11")]
         public void Parse(string input, string expected)
         {
             var gesture = MultiKeyGesture.Parse(input);
@@ -72,6 +73,24 @@ namespace WpfMultiKeyBindings
                 gesture.ToString().Should().Be(expected);
             else
                 expected.Should().BeNullOrWhiteSpace();
+        }
+
+        [Test, Apartment(ApartmentState.STA)]
+        [TestCase(Key.F11)]
+        [TestCase(Key.Play)]
+        [TestCase(Key.MediaPlayPause)]
+        public void Support_Single_Keys_on_PreviewKeyDown(Key key)
+        {
+            var keyboard = new MockKeyboardDevice();
+
+            var sut = new MultiKeyGesture(ModifierKeys.None, key);
+
+            var e = keyboard.ArgsFor(key, Keyboard.PreviewKeyDownEvent);
+            keyboard.Keys[key] = KeyStates.Down;
+            sut.Matches(null, e).Should().BeTrue();
+
+            e = keyboard.ArgsFor(key + 1, Keyboard.PreviewKeyDownEvent);
+            sut.Matches(null, e).Should().BeFalse();
         }
     }
 }

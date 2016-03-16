@@ -83,12 +83,12 @@ namespace WpfMultiKeyBindings
 
         private static bool IsSpecialKey(KeyboardDevice keyboard)
         {
-            return SpecialKeys.Any(keyboard.IsKeyToggled);
+            return SpecialKeys.Any(k => keyboard.IsKeyDown(k) || keyboard.IsKeyToggled(k));
         }
 
         private static bool IsFunctionKey(KeyboardDevice keyboard)
         {
-            return FunctionKeys.Any(keyboard.IsKeyToggled);
+            return FunctionKeys.Any(k => keyboard.IsKeyDown(k) || keyboard.IsKeyToggled(k));
         }
     }
 }
