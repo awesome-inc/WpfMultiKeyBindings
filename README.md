@@ -7,6 +7,9 @@ A WPF implementation for MultiKeyBindings like in Visual Studio.
 [![NuGet](https://badge.fury.io/nu/FontAwesome.Sharp.svg)](https://www.nuget.org/packages/WpfMultiKeyBindings/) 
 [![NuGet](https://img.shields.io/nuget/dt/WpfMultiKeyBindings.svg?style=flat-square)](https://www.nuget.org/packages/WpfMultiKeyBindings/)
 
+[![Coverage Status](https://coveralls.io/repos/github/awesome-inc/FluentAssertions.Autofac/badge.svg)](https://coveralls.io/github/awesome-inc/FluentAssertions.Autofac)
+[![Coverage Status](https://coveralls.io/repos/github/awesome-inc/WpfMultiKeyBindings/badge.svg)](https://coveralls.io/github/awesome-inc/WpfMultiKeyBindings)
+
 Here is a screenshot from the sample application
 
 ![Screenshot of sample application](WpfSample.png)
